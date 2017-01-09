@@ -1,0 +1,20 @@
+{
+  "name": "ludusy",
+  "homepage": "https://github.com/estebanpadilla/ludusy",
+  "authors": [
+    "Esteban Padilla <ep@estebanpadilla.com>"
+  ],
+  "description": "A set of javascript tools I am woking on for my personal projects. Edit",
+  "main": "app.js",
+  "keywords": [
+    "javascript"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
