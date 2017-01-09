@@ -4,7 +4,7 @@
   "description": "A set of javascript tools I am woking on for my personal projects.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "browser-sync start --s --f *.js, *.css, *.html"
   },
   "repository": {
     "type": "git",
