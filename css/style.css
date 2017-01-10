@@ -23,7 +23,7 @@ h4 {
 
 .code {
     font-family: 'Menlo';
-    font-size: 11px;
+    font-size: 15px;
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 0px;
@@ -33,7 +33,7 @@ h4 {
 
 p {
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 15px;
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 0px;
@@ -43,6 +43,24 @@ p {
 
 b {
     font-family: 'Menlo';
-    font-size: 13px;
-    color:#b5e2ef;
+    font-size: 15px;
+    color:#ee3344;
+}
+
+pre {
+    border-radius: 5px;
+    background: #b5e2ef;
+    color: #2b0d3b;
+    margin: 20px 20px 20px 20px;
+    padding: 20px 20px 20px 20px;    
+    overflow: auto;
+    display: block;
+    unicode-bidi: embed;
+    word-wrap: break-word; 
+    white-space: pre-line;  
+}
+
+code {
+    font-family: 'Menlo';    
+    font-size: 12px;
 }

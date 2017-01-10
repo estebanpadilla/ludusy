@@ -347,3 +347,34 @@ Line.prototype.render = function () {
 Line.prototype.update = function () {
     this.render();
 }
+
+function Grid(position, width, height, divisionSize, lineColor, context) {
+    if (!(this instanceof Grid)) {
+        return new Grid(position, width, height, divisionSize, lineColor, context);
+    }
+    this.position = position;
+    this.width = width;
+    this.height = height;
+    this.divisionSize = divisionSize;
+    this.lineColor = lineColor;
+    this.context = context;
+    this.update();
+}
+
+Grid.prototype.update = function () {
+    this.render();
+}
+
+Grid.prototype.render = function () {
+    var x = this.position.x;
+    for (var i = 0; i < this.width; i += this.divisionSize) {
+        x += this.divisionSize;
+        var line = Line(x, this.position.y, x, this.height, 0.5, 'round', this.lineColor, this.context);
+    }
+
+    var y = this.position.y;
+    for (var i = 0; i < this.height; i += this.divisionSize) {
+        y += this.divisionSize;
+        var line = Line(this.position.x, y, this.width, y, 0.5, 'round', this.lineColor, this.context);
+    }
+}
