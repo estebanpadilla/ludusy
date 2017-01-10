@@ -6,6 +6,7 @@
  * Box - A simple box shape.
  * Rectangle - A square shape with fill and stroke options.
  * Line - A simple two point line.
+ * Triangle - A triangle shape with the center point on the middle.
  */
 
 /**
@@ -174,6 +175,42 @@ Ellipse.prototype.update = function () {
 }
 
 /**
+ * Defines a Triangle shape for the canvas
+ * @constructor
+ * @param {Vector} position - Vector position.
+ * @param {number} size - Size for the shape.
+ * @param {string} color - Color for the shape.
+ * @param {CanvasRenderingContext2D} context - The 2d rendering context from the canvas.
+ */
+function Triangle(position, size, color, context) {
+
+    if (!(this instanceof Triangle)) {
+        return new Triangle(position, size, color, context);
+    }
+
+    this.position = position;
+    this.size = size;
+    this.color = color;
+    this.context = context;
+    this.update();
+}
+
+Triangle.prototype.render = function () {
+    this.context.fillStyle = this.color;
+    this.context.beginPath();
+    this.context.moveTo((this.position.x), (this.position.y - (this.size / 2)));
+    this.context.lineTo((this.position.x + (this.size / 2)), (this.position.y + (this.size / 2)));
+    this.context.lineTo((this.position.x - (this.size / 2)), (this.position.y + (this.size / 2)));
+    this.context.closePath();
+    this.context.fill();
+}
+
+Triangle.prototype.update = function () {
+    this.render();
+}
+
+
+/**
  * Box
  * Defines a simple box shape for the canvas.
  * Version: 1.0.0
@@ -199,7 +236,6 @@ function Box(position, size, color, context) {
 Box.prototype.render = function () {
     this.context.fillStyle = this.color;
     this.context.fillRect(this.position.x, this.position.y, this.size, this.size);
-    this.context.fill();
 }
 
 Box.prototype.update = function () {
@@ -268,7 +304,6 @@ Rectangle.prototype.render = function () {
 Rectangle.prototype.update = function () {
     this.render();
 }
-
 
 /**
  * Defines a Line shape for the canvas.

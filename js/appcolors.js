@@ -11,4 +11,9 @@ function AppColors() {
     this.circleColor1 = '#00adef';
     this.circleColor2 = 'orangered';
 
+    this.mybackground = '#2b0d3b';
+    this.mycreme = '#f6e6ca';
+    this.mylightblue = '#b5e2ef';
+    this.myred = '#ee3344';
+
 }
