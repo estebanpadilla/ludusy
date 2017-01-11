@@ -1,4 +1,19 @@
 /**
+ * Point
+ * This is a simple class to define a point in space.
+ * Version 1.0.0
+ * @param {number} x - X position.
+ * @param {number} y - Y position.
+ */
+function Point(x, y) {
+    if (!(this instanceof Point)) {
+        return new Point(x, y);
+    }
+    this.x = x;
+    this.y = y;
+}
+
+/**
  * Vector
  * This class is divide in two types of methods, creation and operations.
  * Creation methods will create or change the values of this vector.

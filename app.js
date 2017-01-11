@@ -11,14 +11,16 @@ function init() {
     var context = canvas.getContext('2d');
 
     let grid = Grid(Vector(0, 0), window.innerWidth, 200, 40, AppColors().mycreme, context);
-
     let ball = Ball(Vector(50, 75), 30, AppColors().myred, context);
     var circle = Circle(Vector(120, 75), 25, true, AppColors().myred, true, AppColors().mylightblue, 10, context);
     var ellipse = Ellipse(Vector(195, 75), 30, 20, 0, true, AppColors().mycreme, true, AppColors().myred, 10, context);
-    var triangle = Triangle(Vector(260, 75), 50, AppColors().mylightblue, context);
+    var triangle = Triangle(Vector(260, 75), 50, AppColors().lightblue, context);
     var box = Box(Vector(300, 50), 50, AppColors().myred, context);
-    var rectangle = Rectangle(Vector(370, 55), 60, 40, true, AppColors().myred, true, AppColors().mylightblue, 10, context);
-    var line = Line(450, 60, 490, 90, 10, 'round', AppColors().myred, context);
+    var rectangle = Rectangle(Vector(370, 55), 60, 40, true, AppColors().red, true, AppColors().lightblue, 10, context);
+    var line = Line(Vector(450, 60), Vector(490, 90), 10, 'round', AppColors().red, context);
+    let text = new Text(Vector(40, 140), 30, 'Canvas', 'white', context);
+
+
 }
 
 function addInstrucctions() {
@@ -30,8 +32,6 @@ function addInstrucctions() {
     div.appendChild(h1);
 
     var p = document.createElement('p');
-
-
 
     var h4 = document.createElement('h4');
     h4.innerHTML = 'Creating a ball'

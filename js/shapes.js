@@ -1,21 +1,8 @@
 /**
- * Shapes defines diferent form that can be drawn on the canvas.
- * Ball - A simple circular shape.
- * Circle - Like a ball with stoke and fill opions.
- * Ellipse - Like a circle but with radius x, y and rotation.
- * Box - A simple box shape.
- * Rectangle - A square shape with fill and stroke options.
- * Line - A simple two point line.
- * Triangle - A triangle shape with the center point on the middle.
- */
-
-/**
  * Ball
  * Defines a Ball shape for the canvas
- * Version 1.0.0
  * @constructor
- * @param {number} x - x position.
- * @param {number} y - y position.
+ * @param {vector} position - Position.
  * @param {number} radius - Radius for the shape.
  * @param {string} color - Color for the shape.
  * @param {CanvasRenderingContext2D} context - The 2d rendering context from the canvas.
@@ -48,7 +35,6 @@ Ball.prototype.update = function () {
 /**
  * Circle
  * Creates a more circle shape for the canvas, this class has more options than a ball, use it when you need stroke and remove the fill.
- * Version 1.0.0
  * @constructor
  * @param {Vector} position - Defines the position of the circle.
  * @param {number} radius - Radius for the shape.
@@ -107,11 +93,9 @@ Circle.prototype.update = function () {
     this.render();
 }
 
-
 /**
  * Ellipse
  * Creates a ellipse shape for the canvas.
- * Version 1.0.0
  * @constructor
  * @param {Vector} position - Defines the position of the circle.
  * @param {number} radiusX - Radius x for the shape.
@@ -213,7 +197,6 @@ Triangle.prototype.update = function () {
 /**
  * Box
  * Defines a simple box shape for the canvas.
- * Version: 1.0.0
  * @constructor
  * @param {Vector} position - The shapes osition.
  * @param {number} size - Size for the shape.
@@ -245,7 +228,6 @@ Box.prototype.update = function () {
 /**
  * Rectangle
  * Defines a rectangle shape for the canvas with strke options.
- * Version: 1.0.0
  * @constructor
  * @param {Vector} position - Defines the position of the shape.
  * @param {number} width - Width for the shape.
@@ -308,25 +290,19 @@ Rectangle.prototype.update = function () {
 /**
  * Defines a Line shape for the canvas.
  * @constructor
- * @param {number} x1 - Start x postion.
- * @param {number} y1 - Start y postion.
- * @param {number} x2 - End x postion.
- * @param {number} y2 - End y postion.
+ * @param {Vector} p1 - Start postion.
+ * @param {Vector} p2 - End postion.
  * @param {number} lineWidth - Width for the line.
- * @param {number} lineCap - Line cap style.
+ * @param {string} lineCap - Line cap style.
  * @param {string} color - Color for the shape.
  * @param {CanvasRenderingContext2D} context - The 2d rendering context from the canvas.
  */
-function Line(x1, y1, x2, y2, lineWidth, lineCap, color, context) {
-
+function Line(p1, p2, lineWidth, lineCap, color, context) {
     if (!(this instanceof Line)) {
-        return new Line(x1, y1, x2, y2, lineWidth, lineCap, color, context);
+        return new Line(p1, p2, lineWidth, lineCap, color, context);
     }
-
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
+    this.p1 = p1;
+    this.p2 = p2;
     this.lineWidth = lineWidth;
     this.lineCap = lineCap;
     this.color = color;
@@ -339,8 +315,8 @@ Line.prototype.render = function () {
     this.context.strokeStyle = this.color;
     this.context.lineWidth = this.lineWidth;
     this.context.lineCap = this.lineCap;
-    this.context.moveTo(this.x1, this.y1);
-    this.context.lineTo(this.x2, this.y2);
+    this.context.moveTo(this.p1.x, this.p1.y);
+    this.context.lineTo(this.p2.x, this.p2.y);
     this.context.stroke();
 }
 
@@ -348,10 +324,22 @@ Line.prototype.update = function () {
     this.render();
 }
 
+/**
+ * Defines a grid shape for the canvas.
+ * @constructor
+ * @param {Vector} position - Start postion.
+ * @param {number} width - Grids width.
+ * @param {number} height - Grids height.
+ * @param {number} divisionSize - Grids division size..
+ * @param {string} lineColor - Color for the grid lines.
+ * @param {CanvasRenderingContext2D} context - The 2d rendering context from the canvas.
+ */
 function Grid(position, width, height, divisionSize, lineColor, context) {
+
     if (!(this instanceof Grid)) {
         return new Grid(position, width, height, divisionSize, lineColor, context);
     }
+
     this.position = position;
     this.width = width;
     this.height = height;
@@ -369,12 +357,47 @@ Grid.prototype.render = function () {
     var x = this.position.x;
     for (var i = 0; i < this.width; i += this.divisionSize) {
         x += this.divisionSize;
-        var line = Line(x, this.position.y, x, this.height, 0.5, 'round', this.lineColor, this.context);
+        var line = Line(Vector(x, this.position.y), Vector(x, this.height), 0.5, 'round', this.lineColor, this.context);
     }
 
     var y = this.position.y;
     for (var i = 0; i < this.height; i += this.divisionSize) {
         y += this.divisionSize;
-        var line = Line(this.position.x, y, this.width, y, 0.5, 'round', this.lineColor, this.context);
+        var line = Line(Vector(this.position.x, y), Vector(this.width, y), 0.5, 'round', this.lineColor, this.context);
     }
 }
+
+/**
+ * Defines a Text shape for the canvas
+ * @constructor
+ * @param {Vector} position - Postion.
+ * @param {number} size - Text size.
+ * @param {string} text - Text.
+ * @param {string} color - Color for the shape.
+ * @param {CanvasRenderingContext2D} context - The 2d rendering context from the canvas.
+ */
+function Text(position, size, text, color, context) {
+    if (!(this instanceof Text)) {
+        return new Text(position, size, text, color, context);
+    }
+    this.position = position;
+    this.size = size;
+    this.text = text;
+    this.color = color;
+    this.context = context;
+    this.update();
+}
+
+Text.prototype.render = function () {
+    this.context.fillStyle = this.color;
+    this.context.font = '' + this.size + 'px Lato';
+    this.context.textAlign = 'left';
+    this.context.fillText(this.text, this.position.x, this.position.y);
+
+}
+
+Text.prototype.update = function () {
+    this.render();
+}
+
+

@@ -16,4 +16,9 @@ function AppColors() {
     this.mylightblue = '#b5e2ef';
     this.myred = '#ee3344';
 
+    this.background = '#2b0d3b';
+    this.creme = '#f6e6ca';
+    this.lightblue = '#b5e2ef';
+    this.red = '#ee3344';
+
 }
