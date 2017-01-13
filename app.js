@@ -20,6 +20,8 @@ function init() {
     var line = Line(Vector(450, 60), Vector(490, 90), 10, 'round', AppColors().red, context);
     let text = new Text(Vector(40, 140), 30, 'Canvas', 'white', context);
 
+    let sball = new SBall(Vector(200, 100), 50, AppColors().red);
+
 
 }
 

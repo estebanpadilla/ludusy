@@ -401,3 +401,46 @@ Text.prototype.update = function () {
 }
 
 
+/**
+ * SBall
+ * Defines a simmple svg ball.
+ * @constructor
+ * @param {vector} position - Position.
+ * @param {number} radius - Radius for the shape.
+ * @param {string} color - Color for the shape.
+ */
+function SBall(position, radius, color) {
+
+    if (!(this instanceof SBall)) {
+        return new SBall(position, radius, color);
+    }
+
+    this.position = position;
+    this.radius = radius;
+    this.color = color;
+    this.svg;
+    this.circle;
+    this.render();
+    this.update();
+}
+
+SBall.prototype.update = function () {
+    this.svg.style.left = this.position.x;
+    this.svg.style.top = this.position.y;
+}
+
+SBall.prototype.render = function () {
+    let xmlns = "http://www.w3.org/2000/svg";
+    this.svg = document.createElementNS(xmlns, 'svg');
+    this.svg.setAttribute('width', (this.radius * 2));
+    this.svg.setAttribute('height', (this.radius * 2));
+    this.svg.style.fill = this.color;
+    document.body.appendChild(this.svg);
+
+    this.circle = document.createElementNS(xmlns, 'circle');
+    this.circle.setAttribute('cx', this.radius);
+    this.circle.setAttribute('cy', this.radius);
+    this.circle.setAttribute('r', this.radius);
+    this.svg.appendChild(this.circle);
+}
+
