@@ -211,7 +211,7 @@ Vector.prototype.setComponents = function (angle, magnitude) {
  * Calculates this vector's angle.
  * @return {number} value - Returns this vector angle in radians.
  */
-Vector.prototype.angle = function angle() {
+Vector.prototype.angle = function () {
     return Math.atan2(this.y, this.x);
 };
 
@@ -231,7 +231,7 @@ Vector.prototype.angleTo = function (v) {
  * @param {Vector} v - The vector to find the angle to.
  * @return {number} angle - Return the angle in radias.
  */
-Vector.prototype.angleFrom = function findAngle(v) {
+Vector.prototype.angleFrom = function (v) {
     let o = this.y - v.y;
     let a = this.x - v.x;
     return Math.atan2(o, a);
@@ -242,8 +242,22 @@ Vector.prototype.angleFrom = function findAngle(v) {
  * @param {Vector} v - The vector to find the angle to.
  * @return {number} angle - Return the angle in radias.
  */
-Vector.prototype.angleBetween = function findAngle(v) {
+Vector.prototype.angleBetween = function (v) {
     return Math.acos(this.dot(v) / this.magnitude() / v.magnitude());
+};
+
+/** 
+ * Check if this vector components are equal to vecto pass on the param.
+ * @param {Vector} v - The vector to find the angle to.
+ * @return {boolean} value - Return true or false.
+ */
+Vector.prototype.equalTo = function (v) {
+    let distance = Math.floor(this.magnitudeTo(v));
+    if (distance < 5) {
+        return true;
+    } else {
+        return false;
+    }
 };
 
 /** 
