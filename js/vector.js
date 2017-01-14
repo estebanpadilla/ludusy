@@ -1,7 +1,6 @@
 /**
  * Point
  * This is a simple class to define a point in space.
- * Version 1.0.0
  * @param {number} x - X position.
  * @param {number} y - Y position.
  */
@@ -18,7 +17,6 @@ function Point(x, y) {
  * This class is divide in two types of methods, creation and operations.
  * Creation methods will create or change the values of this vector.
  * Operations will calculate this vector.
- * Version 1.0.0
  * @param {number} x - X position.
  * @param {number} y - Y position.
  */
@@ -28,6 +26,16 @@ function Vector(x, y) {
     }
     this.x = x || 0;
     this.y = y || 0;
+}
+
+/**
+ * Create a new vector with zero values.
+ * @return {number} value - A zero values vector..
+ */
+Vector.prototype.zero = function () {
+    this.x = 0;
+    this.y = 0;
+    return this;
 }
 
 /**
@@ -42,22 +50,53 @@ Vector.prototype.add = function (v) {
 };
 
 /**
- * Adds to the x component of the vector the value passed on the param.
- * @param {number} x - The value to be added.
+ * Adds the value to this vector X component.
+ * @param {number} value - The value to be added.
  * @return {Vector} this - Returns this vector with the new values.
  */
-Vector.prototype.addX = function (x) {
-    this.x += x;
+Vector.prototype.addX = function (value) {
+    this.x += value;
     return this;
 };
 
 /**
- * Adds to the y component of the vector the value passed on the param.
- * @param {number} y - The value to be added.
+ * Adds the value to this vector the Y component.
+ * @param {number} value - The value to be added.
  * @return {Vector} this - Returns this vector with the new values.
  */
-Vector.prototype.addY = function (v) {
-    this.y += v.y;
+Vector.prototype.addY = function (value) {
+    this.y += value;
+    return this;
+};
+
+/**
+ * Removes the values of the vector passed on the param to this vector.
+ * @param {Vector} v - Vector to be remove.
+ * @return {Vector} this - Returns this vector with the new values.
+ */
+Vector.prototype.remove = function (v) {
+    this.x -= v.x;
+    this.y -= v.y;
+    return this;
+};
+
+/**
+ * Removes the value passed on the param to this vector X component.
+ * @param {number} value - Value to be remove.
+ * @return {Vector} this - Returns this vector with the new values.
+ */
+Vector.prototype.removeX = function (value) {
+    this.x -= value;
+    return this;
+};
+
+/**
+ * Removes the value passed on the param to this vector Y component.
+ * @param {number} value - Value to be remove.
+ * @return {Vector} this - Returns this vector with the new values.
+ */
+Vector.prototype.removeY = function (value) {
+    this.y -= value;
     return this;
 };
 
@@ -77,38 +116,95 @@ Vector.prototype.multiply = function (v) {
  * @param {number} x - The value to be added.
  * @return {Vector} this - Returns this vector with the new values.
  */
-Vector.prototype.multiplyX = function (x) {
-    this.x = (this.x * x);
+Vector.prototype.multiplyX = function (value) {
+    this.x = (this.x * value);
     return this;
 };
 
 /**
  * Multiplies the Y component of the vector to the value passed on the param.
- * @param {number} y - The value to be added.
+ * @param {number} value - The value to be added.
  * @return {Vector} this - Returns this vector with the new values.
  */
-Vector.prototype.multiplyY = function (y) {
-    this.y = (this.y * y);
+Vector.prototype.multiplyY = function (value) {
+    this.y = (this.y * value);
+    return this;
+};
+
+/**
+ * Divides this vector's components to the vector's components passed as the param.
+ * @param {Vector} v - The vector to divide for.
+ * @return {Vector} this - Returns this vector with the new values.
+ */
+Vector.prototype.divide = function (v) {
+    this.x = (this.x / v.x);
+    this.y = (this.y / v.y);
     return this;
 };
 
 /**
  * Scales this vector's components by value passed as the param.
- * @param {Vector} v - The value to scale for.
+ * @param {number} value - The value to scale for.
  * @return {Vector} this - Returns this vector with the new values.
  */
-Vector.prototype.scale = function (v) {
-    this.x = (this.x * v);
-    this.y = (this.y * v);
+Vector.prototype.scale = function (value) {
+    this.x = (this.x * value);
+    this.y = (this.y * value);
     return this;
 };
 
+/* -------------------------------------------------------- */
+//Vector Operations
+/* -------------------------------------------------------- */
+
 /**
- * Calculates this vector's maginitude.
- * @return {number} value - Returns this vector maginitude.
+ * Calculates this vector's magnitude.
+ * @return {number} value - Returns this vector magnitude.
  */
 Vector.prototype.magnitude = function () {
     return Math.sqrt((this.x * this.x) + (this.y * this.y));
+};
+
+/**
+ * Finds the magnitud from this vector to another vector.
+ * @param {Vector} v - The vector to calculate magnitud to.
+ * @return {number} value - Returns the magnitud value.
+ */
+Vector.prototype.magnitudeTo = function (v) {
+    let a = this.x - v.x;
+    let o = this.y - v.y;
+    return Math.sqrt((a * a) + (o * o));
+};
+
+/*
+* Normalizes this vector normalized, to normaliza a vector just divide its components by its magnintud.
+@return {Vector} this - Returns a new vector with it's components normalized keeping the same angle.
+**/
+Vector.prototype.normalize = function () {
+    let mag = this.magnitude();
+    return Vector(this.x / mag, this.y / mag);
+};
+
+/**
+ * Finds this vector's dot product in relation to the vector passed as the param.
+ * @param {Vector} v - The vector to calculate dot producto for.
+ * @return {number} value - Returns the dot product value.
+ */
+Vector.prototype.dot = function (v) {
+    return (this.x * v.x) + (this.y * v.y);
+};
+
+/** 
+ * Calculates and creates a the vectors using an angle and a magnitude.
+ * @param {number} angle - The vectors angle in radias.
+ * @param {number} maginitude - The vectors maginitude.
+ * @return {Vector} vector - Return a new vector with the component's value set.
+ */
+Vector.prototype.setComponents = function (angle, magnitude) {
+    let r = angle * Math.PI / 180;
+    let o = (magnitude * Math.sin(r)) + this.y;
+    let a = (magnitude * Math.cos(r)) + this.x;
+    return new Vector(a, o);
 };
 
 /**
@@ -119,87 +215,51 @@ Vector.prototype.angle = function angle() {
     return Math.atan2(this.y, this.x);
 };
 
-/*
-* Normalizes this vector, to normaliza a vector just divide its components by its magnintud.
-@return {Vector} this - Returns this vectore with it's components normalized keeping the same angle.
-**/
-Vector.prototype.normalize = function () {
-    var mag = this.magnitude();
-    return Vector(this.x / mag, this.y / mag);
+/** 
+ * Finds the angle from this vector to another vector.
+ * @param {Vector} v - The vector to find the angle to.
+ * @return {number} angle - Return the angle in radias.
+ */
+Vector.prototype.angleTo = function (v) {
+    let a = v.x - this.x;
+    let o = v.y - this.y;
+    return Math.atan2(o, a);
 };
 
 /** 
- * Calculates and creates a the vectors using an angle and a magnitude.
- * @param {number} angle - The vectors angle in radias.
- * @param {number} maginitude - The vectors maginitude.
- * @return {Vector} vector - Return a new vector with the component's value set.
+ * Finds the angle to this vector from another vector.
+ * @param {Vector} v - The vector to find the angle to.
+ * @return {number} angle - Return the angle in radias.
  */
-Vector.prototype.components = function (angle, maginitude) {
-    var r = angle * Math.PI / 180;
-    var o = (magnitud * Math.sin(r)) + this.y;
-    var a = (magnitud * Math.cos(r)) + this.x;
-    return new Vector(a, o);
-};
-
-/**
- * Divides this vector's components to the vector's components passed as the param.
- * @param {Vector} v - The value to divide for.
- * @return {Vector} this - Returns this vector with the new values.
- */
-Vector.prototype.divide = function (v) {
-    this.x = (this.x / v.x);
-    this.y = (this.y / v.y);
-    return this;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//position: sets the position on the shape where the normal will start to project.
-Vector.prototype.getNormal = function getNormal(angle, position) {
-    var start = this.endPoint(angle, position);
-    return new Vector(start.x, start.y).endPoint(angle - 90, this.normalLength);
-};
-
-//Finds an angle to another vector.
-Vector.prototype.angleTo = function (v) {
-    var a = v.x - this.x;
-    var o = v.y - this.y;
+Vector.prototype.angleFrom = function findAngle(v) {
+    let o = this.y - v.y;
+    let a = this.x - v.x;
     return Math.atan2(o, a);
 };
 
-Vector.prototype.findAngle = function findAngle(v) {
-    var a = this.x - v.x;
-    var o = this.y - v.y;
-    return Math.atan2(o, a);
+/** 
+ * Finds the angle between this vector and another vector.
+ * @param {Vector} v - The vector to find the angle to.
+ * @return {number} angle - Return the angle in radias.
+ */
+Vector.prototype.angleBetween = function findAngle(v) {
+    return Math.acos(this.dot(v) / this.magnitude() / v.magnitude());
 };
 
-//Finds the distance to another vector.
-Vector.prototype.findDistance = function findDistance(v) {
-    var a = this.x - v.x;
-    var o = this.y - v.y;
-    return Math.sqrt((a * a) + (o * o));
-};
-
-Vector.prototype.findOposite = function findOposite(v, angle) {
-
-};
-
+/** 
+ * Converts randians to degrees.
+ * @param {number} radians - The radians angle to convert to degrees.
+ * @return {number} angle - Return the angle in degrees.
+ */
 function toDegrees(radians) {
     return radians * 180 / Math.PI;
 }
 
+/** 
+ * Converts degrees to radians.
+ * @param {number} degrees - The degrees angle to convert to radians.
+ * @return {number} angle - Return the angle in radians.
+ */
 function toRadians(degrees) {
     return degrees * Math.PI / 180;
 }
