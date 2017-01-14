@@ -1,6 +1,6 @@
 {
   "name": "ludusy",
-  "version": "1.0.6",
+  "version": "v1.0.7",
   "description": "A set of javascript tools I am woking on for my personal projects.",
   "main": "app.js",
   "scripts": {
