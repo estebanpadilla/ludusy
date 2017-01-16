@@ -1,18 +1,4 @@
 /**
- * Point
- * This is a simple class to define a point in space.
- * @param {number} x - X position.
- * @param {number} y - Y position.
- */
-function Point(x, y) {
-    if (!(this instanceof Point)) {
-        return new Point(x, y);
-    }
-    this.x = x;
-    this.y = y;
-}
-
-/**
  * Vector
  * This class is divide in two types of methods, creation and operations.
  * Creation methods will create or change the values of this vector.
@@ -202,9 +188,9 @@ Vector.prototype.dot = function (v) {
  */
 Vector.prototype.setComponents = function (angle, magnitude) {
     let r = angle * Math.PI / 180;
-    let o = (magnitude * Math.sin(r)) + this.y;
-    let a = (magnitude * Math.cos(r)) + this.x;
-    return new Vector(a, o);
+    this.y = (magnitude * Math.sin(r));
+    this.x = (magnitude * Math.cos(r));
+    return this;
 };
 
 /**
@@ -276,4 +262,36 @@ function toDegrees(radians) {
  */
 function toRadians(degrees) {
     return degrees * Math.PI / 180;
+}
+
+/**
+ * Point
+ * This is a simple class to define a point in space.
+ * @param {number} x - X position.
+ * @param {number} y - Y position.
+ */
+function Point(x, y) {
+    if (!(this instanceof Point)) {
+        return new Point(x, y);
+    }
+    this.x = x;
+    this.y = y;
+}
+
+/**
+ * Rect
+ * This is a simple class to define a rect in space.
+ * @param {number} x - X position.
+ * @param {number} y - Y position.
+ * @param {number} width - This is the width proportions of the shape.
+ * @param {number} height - This is the height proportions of the shape.
+ */
+function Rect(x, y, width, height) {
+    if (!(this instanceof Rect)) {
+        return new Rect(x, y, width, height);
+    }
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
 }
