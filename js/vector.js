@@ -247,6 +247,32 @@ Vector.prototype.equalTo = function (v) {
 };
 
 /** 
+ * Rotates this vector's angle the ammount of radians passed.
+ * @param {number} a - The ammout of radians to rotate.
+ * @return {Vector} this - Returns this vector with the new values.
+ */
+Vector.prototype.rotate = function (a) {
+    let r = this.angle() + a,
+        m = this.magnitude();
+    this.y = (m * Math.sin(r));
+    this.x = (m * Math.cos(r));
+    return this;
+}
+
+/** 
+ * Rotates this vector to the angle the ammount of radians passed.
+ * @param {number} a - The angle to rotate.
+ * @return {Vector} this - Returns this vector with the new values.
+ */
+Vector.prototype.rotateTo = function (a) {
+    let m = this.magnitude();
+    this.y = (m * Math.sin(a));
+    this.x = (m * Math.cos(a));
+    return this;
+}
+
+
+/** 
  * Converts randians to degrees.
  * @param {number} radians - The radians angle to convert to degrees.
  * @return {number} angle - Return the angle in degrees.
