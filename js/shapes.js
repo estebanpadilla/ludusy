@@ -17,6 +17,7 @@ function Ball(position, radius, color, context) {
     this.radius = radius;
     this.color = color;
     this.context = context;
+    this.debug = false;
     this.update();
 }
 
@@ -26,11 +27,25 @@ Ball.prototype.render = function () {
     this.context.arc(this.position.x, this.position.y, this.radius, 0, (2 * Math.PI), false);
     this.context.fill();
     this.context.closePath();
+
+    if (this.debug) {
+        this.context.beginPath();
+        this.context.strokeStyle = 'lawngreen';
+        this.context.lineWidth = 2;
+        this.context.rect(this.position.x - this.radius, this.position.y - this.radius, this.radius * 2, this.radius * 2);
+        this.context.stroke();
+        this.context.closePath();
+    }
 }
 
 Ball.prototype.update = function () {
     this.render();
 }
+
+Ball.prototype.getBounds = function () {
+    return Rect(this.position.x - this.radius, this.position.y - this.radius, this.radius * 2, this.radius * 2);
+}
+
 
 /**
  * Circle
@@ -93,6 +108,10 @@ Circle.prototype.update = function () {
     this.render();
 }
 
+Circle.prototype.getBounds = function () {
+    return Rect(this.position.x, this.position.y, this.radius * 2, this.radius * 2);
+}
+
 /**
  * Ellipse
  * Creates a ellipse shape for the canvas.
@@ -141,7 +160,7 @@ Ellipse.prototype.render = function () {
         this.context.lineCap = 'round';
     }
 
-    this.context.ellipse(this.position.x, this.position.y, this.radiusX, this.radiusY, this.rotation, 0, Math.PI * 2, false);
+    this.context.ellipse(this.position.x, this.position.y, this.radiusX * 2, this.radiusY * 2, this.rotation, 0, Math.PI * 2, false);
 
     if (this.hasFill) {
         this.context.fill();
@@ -156,6 +175,10 @@ Ellipse.prototype.render = function () {
 
 Ellipse.prototype.update = function () {
     this.render();
+}
+
+Ellipse.prototype.getBounds = function () {
+    return Rect(this.position.x, this.position.y, this.radiusX, this.radiusY);
 }
 
 /**
@@ -193,6 +216,9 @@ Triangle.prototype.update = function () {
     this.render();
 }
 
+Triangle.prototype.getBounds = function () {
+    return Rect(this.position.x, this.position.y, this.size, this.size);
+}
 
 /**
  * Box
@@ -223,6 +249,10 @@ Box.prototype.render = function () {
 
 Box.prototype.update = function () {
     this.render();
+}
+
+Box.prototype.getBounds = function () {
+    return Rect(this.position.x, this.position.y, this.size, this.size);
 }
 
 /**
@@ -285,6 +315,11 @@ Rectangle.prototype.render = function () {
 
 Rectangle.prototype.update = function () {
     this.render();
+}
+
+
+Rectangle.prototype.getBounds = function () {
+    return Rect(this.position.x, this.position.y, this.width, this.height);
 }
 
 /**
@@ -400,7 +435,6 @@ Text.prototype.update = function () {
     this.render();
 }
 
-
 /**
  * SBall
  * Defines a simmple svg ball.
@@ -442,5 +476,9 @@ SBall.prototype.render = function () {
     this.circle.setAttribute('cy', this.radius);
     this.circle.setAttribute('r', this.radius);
     this.svg.appendChild(this.circle);
+}
+
+SBall.prototype.getBounds = function () {
+    return Rect(this.position.x, this.position.y, this.radius * 2, this.radius * 2);
 }
 
