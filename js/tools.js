@@ -97,9 +97,6 @@ function hitBallOnBall(p1, r1, p2, r2) {
     return false;
 }
 
-
-
-
 function createCanvas(x, y, w, h) {
     let canvas = document.createElement('canvas');
     document.body.appendChild(canvas);
@@ -108,4 +105,8 @@ function createCanvas(x, y, w, h) {
     canvas.width = w;
     canvas.height = h;
     return canvas;
+}
+
+function randomBtween(max, min) {
+    return Math.floor(Math.random() * (max - min) + min);
 }

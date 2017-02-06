@@ -46,7 +46,6 @@ Ball.prototype.getBounds = function () {
     return Rect(this.position.x - this.radius, this.position.y - this.radius, this.radius * 2, this.radius * 2);
 }
 
-
 /**
  * Circle
  * Creates a more circle shape for the canvas, this class has more options than a ball, use it when you need stroke and remove the fill.

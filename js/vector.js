@@ -24,6 +24,15 @@ Vector.prototype.zero = function () {
     return this;
 }
 
+
+/**
+ * Create a new vector with this vector's values.
+ * @return {Vector} value - A new vector with the same values.
+ */
+Vector.prototype.clone = function () {
+    return Vector(this.x, this.y);
+}
+
 /**
  * Adds the values of the vector passed on the param to this vector.
  * @param {Vector} v - Vector to be added.
@@ -270,3 +279,4 @@ Vector.prototype.rotateTo = function (a) {
     this.x = (m * Math.cos(a));
     return this;
 }
+
