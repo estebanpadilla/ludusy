@@ -481,3 +481,118 @@ SBall.prototype.getBounds = function () {
     return Rect(this.position.x, this.position.y, this.radius * 2, this.radius * 2);
 }
 
+/**
+ * RoundRect
+ * Defines a rectangle shape for the canvas with strke options.
+ * @constructor
+ * @param {Vector} p - Defines the position of the shape.
+ * @param {number} w - Width for the shape.
+ * @param {number} h - Height for the shape.
+ * @param {number} cr - Radius for the corner.
+ * @param {number} c - Color for the shape.
+ * @param {CanvasRenderingContext2D} ctx - The 2d rendering context from the canvas.
+ */
+function RoundRect(p, w, h, cr, c, ctx) {
+    if (!(this instanceof RoundRect)) {
+        return new RoundRect(p, w, h, cr, c, ctx);
+    }
+    this.p = p;
+    this.w = w;
+    this.h = h;
+    this.cr = cr
+    this.c = c;
+    this.ctx = ctx;
+    this.update();
+}
+
+RoundRect.prototype.update = function () {
+    this.render();
+}
+
+RoundRect.prototype.render = function () {
+    this.ctx.fillStyle = this.c;
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.p.x + (this.w - this.cr), this.p.y);
+    this.ctx.quadraticCurveTo(this.p.x + this.w, this.p.y, this.p.x + this.w, this.p.y + this.cr);
+    this.ctx.lineTo(this.p.x + this.w, this.p.y + (this.h - this.cr));
+    this.ctx.quadraticCurveTo(this.p.x + this.w, this.p.y + this.h, this.p.x + (this.w - this.cr), this.p.y + this.h);
+    this.ctx.lineTo(this.p.x + this.cr, this.p.y + this.h);
+    this.ctx.quadraticCurveTo(this.p.x, this.p.y + this.h, this.p.x, this.p.y + (this.h - this.cr));
+    this.ctx.lineTo(this.p.x, this.p.y + this.cr);
+    this.ctx.quadraticCurveTo(this.p.x, this.p.y, this.p.x + this.cr, this.p.y);
+    this.ctx.closePath();
+    this.ctx.fill()
+}
+
+
+
+/**
+ * RoundRectangle
+ * Defines a rectangle shape for the canvas with strke options.
+ * @constructor
+ * @param {Vector} p - Defines the position of the shape.
+ * @param {number} w - Width for the shape.
+ * @param {number} h - Height for the shape.
+ * @param {number} cr - Radius for the corner.
+ * @param {boolea} hasFill - Set the shape to show the fill.  
+ * @param {string} c - Color for the shape.
+ * @param {boolea} hasStroke - Set the shape to show the stroke. 
+ * @param {string} sc - Stroke color for the shape.
+ * @param {number} lw - Stroke line width size.
+ * @param {CanvasRenderingContext2D} ctx - The 2d rendering context from the canvas.
+ */
+function RoundRectangle(p, w, h, cr, hasFill, c, hasStroke, sc, lw, ctx) {
+    if (!(this instanceof RoundRectangle)) {
+        return new RoundRectangle(p, w, h, cr, hasFill, c, hasStroke, sc, lw, ctx);
+    }
+    this.p = p;
+    this.w = w;
+    this.h = h;
+    this.cr = cr
+    this.hasFill = hasFill;
+    this.c = c;
+    this.hasStroke = hasStroke;
+    this.sc = sc;
+    this.lw = lw;
+    this.ctx = ctx;
+    this.update();
+}
+
+RoundRectangle.prototype.update = function () {
+    this.render();
+}
+
+RoundRectangle.prototype.render = function () {
+
+
+
+    if (this.hasFill) {
+        this.ctx.fillStyle = this.c;
+        this.ctx.beginPath();
+    }
+
+    if (this.hasStroke) {
+        this.ctx.strokeStyle = this.sc;
+        this.ctx.lineWidth = this.lw;
+        this.ctx.lineCap = 'round';
+    }
+
+    this.ctx.moveTo(this.p.x + (this.w - this.cr), this.p.y);
+    this.ctx.quadraticCurveTo(this.p.x + this.w, this.p.y, this.p.x + this.w, this.p.y + this.cr);
+    this.ctx.lineTo(this.p.x + this.w, this.p.y + (this.h - this.cr));
+    this.ctx.quadraticCurveTo(this.p.x + this.w, this.p.y + this.h, this.p.x + (this.w - this.cr), this.p.y + this.h);
+    this.ctx.lineTo(this.p.x + this.cr, this.p.y + this.h);
+    this.ctx.quadraticCurveTo(this.p.x, this.p.y + this.h, this.p.x, this.p.y + (this.h - this.cr));
+    this.ctx.lineTo(this.p.x, this.p.y + this.cr);
+    this.ctx.quadraticCurveTo(this.p.x, this.p.y, this.p.x + this.cr, this.p.y);
+    this.ctx.closePath();
+
+    if (this.hasFill) {
+        this.ctx.fill()
+    }
+
+    if (this.hasStroke) {
+        this.ctx.stroke();
+    }
+
+}

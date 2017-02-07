@@ -19,10 +19,9 @@ function init() {
     var rectangle = Rectangle(Vector(370, 55), 60, 40, true, AppColors().red, true, AppColors().lightblue, 10, context);
     var line = Line(Vector(450, 60), Vector(490, 90), 10, 'round', AppColors().red, context);
     let text = new Text(Vector(40, 140), 30, 'Canvas', 'white', context);
-
     let sball = new SBall(Vector(200, 100), 50, AppColors().red);
-
-
+    let roundRect = RoundRect(Vector(600, 50), 50, 50, 10, 'red', context);
+    let roundRectangle = RoundRectangle(Vector(675, 50), 50, 50, 10, true, 'red', true, 'yellow', 6, context);
 }
 
 function addInstrucctions() {
